@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.3.10.RELEASE</version>
+    </parent>
+
+    <groupId>com.book.xw</groupId>
+    <artifactId>myweb-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>app/web</module>
+        <module>app/test</module>
+        <module>app/core/model</module>
+        <module>app/core/service</module>
+        <module>app/common/dal</module>
+        <module>app/common/util</module>
+        <module>app/common/service/integration</module>
+        <module>app/common/service/facade</module>
+        <module>app/biz/shared</module>
+        <module>app/biz/service/impl</module>
+    </modules>
+
+
+    <properties>
+        <maven.compiler.source>10</maven.compiler.source>
+        <maven.compiler.target>10</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <myweb.version>1.0.0</myweb.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-web</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-test</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-common-util</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-common-dal</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-common-service-facade</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-common-service-integration</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-core-model</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-core-service</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-biz-service-impl</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-biz-shared</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.book.xw</groupId>
+                <artifactId>myweb-bootstrap</artifactId>
+                <version>${myweb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>common.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.2.8</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.47</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.80</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <threadCount>1</threadCount>
+                    <properties>
+                        <junit>false</junit>
+                    </properties>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/Abstract*.java</exclude>
+                    </excludes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.20</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>2.20</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.0.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

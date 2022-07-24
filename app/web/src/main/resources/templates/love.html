@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>cruise.com</title>
+    <meta name="author" content="西木风落"/>
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="西木风落主页"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml"/>
+    <style>
+       *{
+    margin:0;
+    padding:0;
+}
+body{
+    background:#000;
+    overflow:hidden;
+}
+.heart{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    width:300px;
+    height:360px;
+    margin: auto;
+    transform-style:preserve-3d;
+    perspective:800px;
+    animation:rot 15s linear infinite;
+}
+@keyframes rot{
+    from{transform:rotateY(0deg) rotateX(0deg)}
+    to{transform:rotateY(360deg) rotateX(360deg)}
+}
+.rib{
+    position:absolute;
+    width:300px;
+    height:360px;
+    border:solid red;
+    border-width:1px 1px 0 0;
+    border-radius:100% 100% 0/40% 100% 0;
+    transition: all 1s;
+}
+.cube{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    width:200px;
+    height:200px;
+    color:red;
+    transform-style:preserve-3d;
+    transform:translateZ(100px);
+}
+.cube div{
+    position:absolute;
+    width:200px;
+    height:200px;
+}
+.cube div:nth-child(1){
+    left:0;
+    top:-200px;
+    transform-origin:bottom;
+    transform:rotateX(90deg);
+}
+.cube div:nth-child(2){
+    left:0;
+    top:200px;
+    transform-origin:top;
+    transform:rotateX(-90deg);
+}
+.cube div:nth-child(3){
+    left:-200px;
+    top:0px;
+    transform-origin:right;
+    transform:rotateY(-90deg);
+}
+.cube div:nth-child(4){
+    left:200px;
+    top:0px;
+    transform-origin:left;
+    transform:rotateY(90deg);
+}
+.cube div:nth-child(5){
+    left:0;
+    top:0px;
+}
+.cube div:nth-child(6){
+    left:0;
+    top:0px;
+    transform:translateZ(-200px);
+}
+
+    </style>
+</head>
+<body>
+
+<div class="heart" id="mycc-heart">
+    <div class="cube">
+        <div>
+            <img src="/image/jf/1.jpg" width="200" height="200" alt="">
+        </div>
+        <div>
+            <img src="/image/jf/2.jpg" width="200" height="200" alt="">
+        </div>
+        <div>
+            <img src="/image/jf/3.jpg" width="200" height="200" alt="">
+        </div>
+        <div>
+            <img src="/image/jf/4.jpg" width="200" height="200" alt="">
+        </div>
+        <div>
+            <img src="/image/jf/5.jpg" width="200" height="200" alt="">
+        </div>
+        <div>
+            <img src="/image/jf/6.jpg" width="200" height="200" alt="">
+        </div>
+    </div>
+</div>
+
+<audio id="myaudio" src="/image/trustme.mp3" controls="controls" autoplay loop="true" hidden="true">
+</audio>
+
+<script type="text/javascript" >
+window.onload = function(){
+	var heart = document.getElementById("mycc-heart");
+    console.log(heart)
+    for (var i = 0; i < 36; i++) {
+     var oDiv = document.createElement("div");
+     oDiv.className = "rib";
+     // 画36条心形曲线
+     oDiv.style.transform = "rotateY(" + 10 * i + "deg) rotateZ(45deg) translateX(30px)";
+     var n = 0;
+     setInterval(function() {
+         if (n < 36) {
+             document.getElementsByClassName('rib')[n].style.borderColor = getRandomColor();
+             n = n + 1;
+         } else {
+             n = 0;
+         }
+     },1000)
+     console.log(n)
+     heart.appendChild(oDiv);
+  }
+
+ // 随机色
+ var getRandomColor = function(){
+   return  '#' +
+     (function(color){
+     return (color +=  '0123456789abcdef'[Math.floor(Math.random()*16)])
+       && (color.length == 6) ?  color : arguments.callee(color);
+   })('');
+ }
+};
+
+<!--(function myplay(){-->
+<!--    var myAuto = document.getElementById('myaudio');-->
+<!--    myAuto.play();-->
+<!--})()-->
+
+</script>
+<audio loop src="/image/trustme.mp3" id="audio" controls autoplay preload="auto">该浏览器不支持audio属性</audio>
+
+<script type="text/javascript">
+        //--创建页面监听，等待微信端页面加载完毕 触发音频播放
+        document.addEventListener('DOMContentLoaded', function () {
+            function audioAutoPlay() {
+                var audio = document.getElementById('audio');
+                    audio.play();
+                document.addEventListener("WeixinJSBridgeReady", function () {
+                    audio.play();
+                }, false);
+            }
+            audioAutoPlay();
+        });
+        //--创建触摸监听，当浏览器打开页面时，触摸屏幕触发事件，进行音频播放
+        document.addEventListener('touchstart', function () {
+            function audioAutoPlay() {
+                var audio = document.getElementById('audio');
+                    audio.play();
+            }
+            audioAutoPlay();
+        });
+        </script>
+
+</body>
+
+</html>
