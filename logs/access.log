@@ -1,1 +1,0 @@
-11:11:07.145 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - [shutdown,218] - Shutting down ExecutorService 'applicationTaskExecutor'
