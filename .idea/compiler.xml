@@ -31,7 +31,7 @@
       <module name="impl" options="-parameters" />
       <module name="integration" options="-parameters" />
       <module name="model" options="-parameters" />
-      <module name="myweb" options="" />
+      <module name="myweb" options="-parameters" />
       <module name="service" options="-parameters" />
       <module name="shared" options="-parameters" />
       <module name="test" options="-parameters" />

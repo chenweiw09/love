@@ -35,6 +35,19 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aspose.pdf</groupId>
+            <artifactId>aspose-pdf</artifactId>
+            <version>21.8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/aspose-pdf-21.8.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
 
