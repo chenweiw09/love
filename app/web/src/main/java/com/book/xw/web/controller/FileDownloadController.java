@@ -15,17 +15,17 @@ import java.net.URLEncoder;
 @RestController
 public class FileDownloadController {
 
-    private static final String LOCAL_PATH = "/home/myfile/";
+    private static final String LOCAL_PATH = "/tmp/";
 
     @RequestMapping("/download/file")
     public void downloadLocal(@RequestParam String fileName, HttpServletResponse response) throws IOException {
         // 读到流中
-        File file = new File(LOCAL_PATH+fileName);
-        if(!file.exists()){
-            throw new RuntimeException(fileName+"not found");
+        File file = new File(LOCAL_PATH + fileName);
+        if (!file.exists()) {
+            throw new RuntimeException(fileName + "not found");
         }
 
-        InputStream inputStream = new FileInputStream(LOCAL_PATH+fileName);
+        InputStream inputStream = new FileInputStream(LOCAL_PATH + fileName);
         response.reset();
         response.setContentType("application/octet-stream");
         response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));

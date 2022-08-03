@@ -8,35 +8,41 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shared" />
-        <module name="impl" />
         <module name="test" />
+        <module name="myweb-web" />
+        <module name="myweb-common-dal" />
+        <module name="facade" />
+        <module name="dal" />
+        <module name="myweb-common-service-facade" />
+        <module name="myweb-biz-shared" />
+        <module name="impl" />
+        <module name="myweb-common-util" />
+        <module name="myweb-core-service" />
+        <module name="myweb-biz-service-impl" />
         <module name="util" />
         <module name="web" />
         <module name="service" />
         <module name="integration" />
-        <module name="facade" />
         <module name="model" />
-        <module name="dal" />
+        <module name="myweb-core-model" />
+        <module name="myweb-test" />
+        <module name="myweb-common-service-integration" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="bootstrap" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="bootstrap" options="-parameters" />
-      <module name="dal" options="-parameters" />
-      <module name="facade" options="-parameters" />
-      <module name="impl" options="-parameters" />
-      <module name="integration" options="-parameters" />
-      <module name="model" options="-parameters" />
-      <module name="myweb" options="-parameters" />
-      <module name="service" options="-parameters" />
-      <module name="shared" options="-parameters" />
-      <module name="test" options="-parameters" />
-      <module name="util" options="-parameters" />
-      <module name="web" options="-parameters" />
+      <module name="myweb-biz-service-impl" options="-parameters" />
+      <module name="myweb-biz-shared" options="-parameters" />
+      <module name="myweb-common-dal" options="-parameters" />
+      <module name="myweb-common-service-facade" options="-parameters" />
+      <module name="myweb-common-service-integration" options="-parameters" />
+      <module name="myweb-common-util" options="-parameters" />
+      <module name="myweb-core-model" options="-parameters" />
+      <module name="myweb-core-service" options="-parameters" />
+      <module name="myweb-parent" options="" />
+      <module name="myweb-test" options="-parameters" />
+      <module name="myweb-web" options="-parameters" />
     </option>
   </component>
 </project>
