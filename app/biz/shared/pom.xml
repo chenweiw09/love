@@ -15,5 +15,29 @@
     <packaging>jar</packaging>
 
 
+    <dependencies>
+        <!--        二维码工具包-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.book.xw</groupId>
+            <artifactId>myweb-common-util</artifactId>
+            <version>${myweb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.book.xw</groupId>
+            <artifactId>myweb-core-model</artifactId>
+        </dependency>
+    </dependencies>
+
+
 
 </project>

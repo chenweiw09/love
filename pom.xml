@@ -145,6 +145,20 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.2.1</version>
             </dependency>
+
+            <!--        二维码工具包-->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>3.0.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

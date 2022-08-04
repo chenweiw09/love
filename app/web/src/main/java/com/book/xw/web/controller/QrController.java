@@ -1,11 +1,10 @@
 package com.book.xw.web.controller;
 
-import com.book.xw.web.util.QRCodeUtil;
+import com.book.wx.shared.util.QRCodeUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
