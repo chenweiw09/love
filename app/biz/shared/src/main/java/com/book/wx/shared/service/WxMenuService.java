@@ -1,12 +1,12 @@
 package com.book.wx.shared.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.book.wx.shared.propertyconfig.WxConfig;
 import com.book.wx.shared.util.HttpsClient;
 import com.book.xw.common.util.utils.NumUtil;
 import com.book.wx.shared.util.SHA1Util;
 import com.book.wx.shared.util.WxUtil;
 import com.book.xw.core.model.entity.AccessToken;
-import com.book.xw.web.config.WxConfig;
 import com.book.xw.common.util.constants.WxConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +33,12 @@ public class WxMenuService {
 
 
     // api文档地址https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1
-    public String wxPayUrl(Double totalFee, String outTradeNo, String signType, String appId, String mchId, String key, String notifyUrl) throws Exception {
+    public String wxPayUrl(Double totalFee, String outTradeNo, String signType) throws Exception {
         HashMap<String, String> data = new HashMap<String, String>();
         //公众账号ID
-        data.put("appid", appId);
+        data.put("appid", wxConfig.getAppID());
         //商户号
-        data.put("mch_id", mchId);
+        data.put("mch_id", wxConfig.getMchID());
         // 设备信息，非必须
         data.put("device_info", "");
         //随机字符串
@@ -54,7 +54,7 @@ public class WxMenuService {
         //用户的IP
         data.put("spbill_create_ip", "123.12.12.123");
         //通知地址
-        data.put("notify_url", notifyUrl);
+        data.put("notify_url", wxConfig.getUnifiedorderNotifyUrl());
         //交易类型
         data.put("trade_type", "NATIVE");//JSAPI /NATIVE/APP
         //用户oppenId，trade_type=JSAPI时（即JSAPI支付），此参数必传
@@ -62,11 +62,11 @@ public class WxMenuService {
         //签名类型
         data.put("sign_type", signType);
         //签名
-        data.put("sign", WxUtil.getSignature(data, key, signType));
+        data.put("sign", WxUtil.getSignature(data, wxConfig.getKey(), signType));
 
         String requestXML = WxUtil.mapToXml(data);
         String responseString = HttpsClient.httpsRequestReturnString(WxConstants.PAY_UNIFIEDORDER, WxConstants.METHOD_POST, requestXML);
-        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, key);
+        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, wxConfig.getKey());
         log.info("微信支付二维码返回:{}", JSONObject.toJSONString(resultMap));
         if (resultMap.get(WxConstants.RETURN_CODE).equals(WxConstants.SUCCESS_CODE)) {
             // 要缓存prepay_id
@@ -84,16 +84,16 @@ public class WxMenuService {
      * @return
      * @throws Exception
      */
-    public String queryOrder(String outTradeNo, String appId, String mchId, String key, String signType) throws Exception {
+    public String queryOrder(String outTradeNo, String signType) throws Exception {
         if (payResultCache.containsKey(outTradeNo) && (payResultCache.get(outTradeNo).equals(WxConstants.SUCCESS_CODE)
                 || payResultCache.get(outTradeNo).equals(WxConstants.FAIL_CODE))) {
             return payResultCache.get(outTradeNo);
         }
         HashMap<String, String> data = new HashMap<String, String>();
         //公众账号ID
-        data.put("appid", appId);
+        data.put("appid", wxConfig.getAppID());
         //商户号
-        data.put("mch_id", mchId);
+        data.put("mch_id", wxConfig.getMchID());
 
         //随机字符串
         data.put("nonce_str", NumUtil.getNonceStr());
@@ -104,11 +104,11 @@ public class WxMenuService {
         //签名类型
         data.put("sign_type", signType);
         //签名
-        data.put("sign", WxUtil.getSignature(data, key, signType));
+        data.put("sign", WxUtil.getSignature(data, wxConfig.getKey(), signType));
 
         String requestXML = WxUtil.mapToXml(data);
         String responseString = HttpsClient.httpsRequestReturnString(WxConstants.PAY_QUERY, WxConstants.METHOD_POST, requestXML);
-        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, key);
+        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, wxConfig.getKey());
         log.info("微信支付结果查询返回:{}", JSONObject.toJSONString(resultMap));
 
         List<String> payingList = Arrays.asList("USERPAYING", "ACCEPT");
@@ -128,12 +128,12 @@ public class WxMenuService {
     }
 
 
-    public boolean closeOrder(String outTradeNo, String appId, String mchId, String key, String signType) throws Exception {
+    public boolean closeOrder(String outTradeNo, String signType) throws Exception {
         HashMap<String, String> data = new HashMap<String, String>();
         //公众账号ID
-        data.put("appid", appId);
+        data.put("appid", wxConfig.getAppID());
         //商户号
-        data.put("mch_id", mchId);
+        data.put("mch_id", wxConfig.getMchID());
 
         //随机字符串
         data.put("nonce_str", NumUtil.getNonceStr());
@@ -144,11 +144,11 @@ public class WxMenuService {
         //签名类型
         data.put("sign_type", signType);
         //签名
-        data.put("sign", WxUtil.getSignature(data, key, signType));
+        data.put("sign", WxUtil.getSignature(data, wxConfig.getKey(), signType));
 
         String requestXML = WxUtil.mapToXml(data);
         String responseString = HttpsClient.httpsRequestReturnString(WxConstants.CLOSE_ORDER, WxConstants.METHOD_POST, requestXML);
-        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, key);
+        Map<String, String> resultMap = WxUtil.processResponseXml(responseString, signType, wxConfig.getKey());
         log.info("微信支付结果查询返回:{}", JSONObject.toJSONString(resultMap));
 
         if (resultMap.get(WxConstants.RETURN_CODE).equals(WxConstants.SUCCESS_CODE)) {
@@ -163,11 +163,11 @@ public class WxMenuService {
         return false;
     }
 
-    public boolean processCallBack(InputStream inputStream, String key, String signType) throws Exception {
+    public boolean processCallBack(InputStream inputStream, String signType) throws Exception {
         String requstXml = HttpsClient.getStreamString(inputStream);
         log.info("processCallBack xml:{}", requstXml);
 
-        Map<String, String> resultMap = WxUtil.processResponseXml(requstXml, signType, key);
+        Map<String, String> resultMap = WxUtil.processResponseXml(requstXml, signType, wxConfig.getKey());
 
         if (resultMap.get(WxConstants.RETURN_CODE).equals(WxConstants.SUCCESS_CODE)) {
             String outTradeNo = resultMap.get("out_trade_no");
@@ -193,20 +193,20 @@ public class WxMenuService {
         }
     }
 
-    public boolean signValid(Map<String, String> data, String key, String signType) {
-        return WxUtil.isSignatureValid(data, key, signType);
+    public boolean signValid(Map<String, String> data, String signType) {
+        return WxUtil.isSignatureValid(data, wxConfig.getKey(), signType);
     }
 
 
-    public String getAccessToken(String code, String appId, String appSecret) {
-        AccessToken accessToken = WxUtil.getAcToken(appId, appSecret, code);
+    public String getAccessToken(String code) {
+        AccessToken accessToken = WxUtil.getAcToken(wxConfig.getAppID(), wxConfig.getAppSecret(), code);
         return accessToken.getToken();
     }
 
     // 验证服务器配置的token是否一致
-    public boolean validateServerToken(String nonce, String timestamp, String serverToken, String signature) {
+    public boolean validateServerToken(String nonce, String timestamp, String signature) {
         log.info("微信请求认证服务端数据:nonce:{}, timestamp:{}, signature:{}", nonce, timestamp, signature);
-        String[] str = {serverToken, timestamp, nonce};
+        String[] str = {wxConfig.getServerToken(), timestamp, nonce};
         // 字典排序
         Arrays.sort(str);
         String bigStr = str[0] + str[1] + str[2];
