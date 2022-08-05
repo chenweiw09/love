@@ -1,0 +1,7 @@
+com/book/wx/shared/service/WxMenuService.class
+com/book/wx/shared/util/MyX509TrustManager.class
+com/book/wx/shared/util/HttpsClient.class
+com/book/wx/shared/util/SHA1Util.class
+com/book/wx/shared/util/WxUtil.class
+com/book/wx/shared/util/QRCodeUtil.class
+com/book/wx/shared/propertyconfig/WxConfig.class
