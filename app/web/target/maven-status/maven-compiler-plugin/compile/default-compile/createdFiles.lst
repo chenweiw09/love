@@ -1,9 +1,0 @@
-com/book/xw/web/util/InetAddressUtil.class
-com/book/xw/web/WebApplication.class
-com/book/xw/web/controller/GlobalErrorController.class
-com/book/xw/web/controller/MyBolgController.class
-com/book/xw/web/controller/WxPayController.class
-com/book/xw/web/controller/QrController.class
-com/book/xw/web/config/WebMvcConfig.class
-com/book/xw/web/config/MyInterceptor.class
-com/book/xw/web/controller/FileDownloadController.class

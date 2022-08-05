@@ -1,7 +1,0 @@
-com/book/xw/common/dal/util/MariaDb4jUtil.class
-com/book/xw/common/dal/model/FileRecordDo.class
-com/book/xw/common/dal/util/EmbeddedMysqlUtil.class
-com/book/xw/common/dal/dao/FileRecordMapper.class
-com/book/xw/common/dal/util/RdbDaoUtil.class
-com/book/xw/common/dal/util/RdbDaoUtil$ColumnType.class
-com/book/xw/common/dal/util/RdbDaoUtil$MyData.class
