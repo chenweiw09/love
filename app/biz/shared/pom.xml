@@ -30,8 +30,8 @@
         <dependency>
             <groupId>com.book.xw</groupId>
             <artifactId>myweb-common-util</artifactId>
-            <version>${myweb.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.book.xw</groupId>
             <artifactId>myweb-core-model</artifactId>

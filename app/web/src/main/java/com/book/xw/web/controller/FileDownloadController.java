@@ -1,23 +1,39 @@
 package com.book.xw.web.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.book.xw.core.model.entity.FileRecord;
+import com.book.xw.core.model.repository.FileRecordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.UUID;
 
-@RestController
+@Controller
+@RequestMapping("/file")
 public class FileDownloadController {
 
-    private static final String LOCAL_PATH = "/tmp/";
+    private static final String LOCAL_PATH = "/tmp/mytest/";
 
-    @RequestMapping("/download/file")
+    @Autowired
+    private FileRecordRepository recordRepository;
+
+
+    @GetMapping("/index")
+    public String fileDownloadIndex(){
+        return "admin/index";
+    }
+
+
+    @RequestMapping("/download")
     public void downloadLocal(@RequestParam String fileName, HttpServletResponse response) throws IOException {
         // 读到流中
         File file = new File(LOCAL_PATH + fileName);
@@ -38,4 +54,35 @@ public class FileDownloadController {
         }
         inputStream.close();
     }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public String uploadFile(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+        if (file.isEmpty()) {
+            throw new RuntimeException("file empty error");
+        }
+
+        String originFileName = file.getOriginalFilename();
+        // 如果目录不存在则创建
+        File uploadDir = new File(LOCAL_PATH);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        String suffixName = originFileName.substring(originFileName.lastIndexOf("."));//获取文件后缀名
+        //重新随机生成名字
+        String filename = UUID.randomUUID().toString().replace("-","") + suffixName;
+        File localFile = new File(LOCAL_PATH + filename);
+        file.transferTo(localFile); //把上传的文件保存至本地
+        // 文件保存成功后存入数据库
+        FileRecord record = new FileRecord();
+        record.setFileName(filename);
+        record.setOriginFileName(originFileName);
+        record.setDesc("test file");
+        record.setDirPath(localFile.getAbsolutePath());
+        record.setFileSize(localFile.length()/1024/1024.0);
+        recordRepository.saveFileRecord(record);
+        return originFileName;
+    }
+
+
 }

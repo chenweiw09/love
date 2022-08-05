@@ -20,8 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 微信菜单实现类类
  */
-@Service
 @Slf4j
+@Service
 public class WxMenuService {
 
     @Autowired
